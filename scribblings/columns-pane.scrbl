@@ -36,7 +36,7 @@ See also @racket[pane%].
 
 }}
 
-@subsection{Example code}
+@section{Example code}
 
 @#reader scribble/comment-reader 
 [racketblock
@@ -65,7 +65,7 @@ See also @racket[pane%].
 
 @image{columns-pane-example.png}
 
-@subsection{Same panel without columns-pane}
+@section{Same panel without columns-pane}
 
 @#reader scribble/comment-reader 
 [racketblock
