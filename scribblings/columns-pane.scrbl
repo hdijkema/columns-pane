@@ -10,7 +10,7 @@
 
 @author[@author+email["Hans Dijkema" "hans@dijkewijk.nl"]]
 
-@defmodule[columns-pane]{This module provides a new class @racket[columns-pane%] that can be used to arrange widgets in a table like fashon, making all widgets in a column of the same width}
+@defmodule[columns-pane%]{This module provides a new class @racket[columns-pane%] that can be used to arrange widgets in a table like fashon, making all widgets in a column of the same width}
 
 @defclass/title[columns-pane% vertical-pane% ()]{
 
