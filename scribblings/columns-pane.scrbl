@@ -10,9 +10,6 @@
               )
   @(for-label columns-pane))
 
-@(define myeval
-   (make-base-eval '(require columns-pane)))
-
 @title[#:tag "columns-pane"]{A pane to arrange controls in columns}
 
 @author[@author+email["Hans Dijkema" "hans@dijkewijk.nl"]]
