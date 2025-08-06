@@ -19,6 +19,12 @@
       (let ((new-pane (new horizontal-pane% [parent this]
                            [spacing spacing] [horiz-margin horiz-margin] [vert-margin (round (/ spacing 2))]
                            [stretchable-height #f])))
+        (letrec ((adder (lambda (col)
+                          (when (< col columns)
+                            (new horizontal-pane% [parent new-pane] [stretchable-width #t]
+                                 [alignment (list (cell-alignment* col) 'center)]))
+                          (adder (+ col 1)))))
+          (adder 0))
         (set! creating-row #f)
         new-pane)
       )
@@ -36,13 +42,18 @@
           (vector-set! hpanes i p))
         p))
 
+    (define/private (cell* c r)
+      (let* ((row (get-row* r))
+             (cells (send row get-children)))
+        (list-ref cells c)))
+    
     (define/private (child* c r)
-      (let* ((hpane (vector-ref hpanes r))
-             (children (send hpane get-children))
-             (child (if (>= c (length children)) #f (list-ref children c)))
+      (let* ((cell (cell* c r))
+             (children (send cell get-children))
+             (child (if (null? children) #f (car children)))
              )
         child))
-    
+        
     (define/private (max-width* c r w)
       (if (< r (vector-length hpanes))
           (let* ((child (child* c r))
@@ -78,25 +89,30 @@
 
     ;; Internal data
     (define column-min-widths (make-vector columns 0))
+    (define column-aligns (make-vector columns 'left))
 
     ;; Public methods
     (define/public (column-min-width c . w)
       (unless (null? w)
         (vector-set! column-min-widths c (car w)))
       (vector-ref column-min-widths c))
-    
+
+    (define/public (column-align c . a)
+      (unless (null? a)
+        (vector-set! column-aligns c (car a)))
+      (vector-reff column-aligns c))
 
     ;; Overridden methods
     (define/override (after-new-child child)
       (super after-new-child child)
       (when (eq? creating-row #f)
-        (let ((hpane (get-row* current-row)))
-          (send child reparent hpane)
-          (set! current-col (+ current-col 1))
-          (when (>= current-col columns)
-            (set! current-row (+ current-row 1))
+        (let ((cell (get-cell* current-col current-row)))
+          (send child reparent cell))
+        (set! current-col (+ current-col 1))
+        (when (>= current-col columns)
+          (set! current-row (+ current-row 1))
           (set! current-col 0))
-          )))
+        ))
 
     (define/override (place-children info width height)
       (let ((r (super place-children info width height)))
