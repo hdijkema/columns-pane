@@ -10,6 +10,7 @@
 
     ;; Internal data
     (define hpanes #f)
+    (define column-min-widths (make-vector columns 0))
     (define creating-row #f)
     (define current-col 0)
     (define current-row 0)
@@ -58,8 +59,11 @@
           (set-min-width* c (+ r 1) w))))
     
     (define/private (arrange-col* c)
-      (let ((w (max-width* c 0 -1)))
-        (set-min-width* c 0 w)))
+      (let* ((w (max-width* c 0 -1))
+             (col-min-width (vector-ref column-min-widths c))
+             (w* (if (> col-min-width w) col-min-width w))
+             )
+        (set-min-width* c 0 w*)))
         
     (define/private (arrange*)
       (letrec ((cols (length (send (vector-ref hpanes 0) get-children)))
@@ -74,6 +78,13 @@
     (init-field [vert-margin 5] [horiz-margin 5] [spacing 5] [columns 1])
 
     ;; Public methods
+    (define/public (column-min-width c . w)
+      (unless (null? w)
+        (vector-set! column-min-widths c w))
+      (vector-ref column-min-widths c))
+    
+
+    ;; Overridden methods
     (define/override (after-new-child child)
       (super after-new-child child)
       (when (eq? creating-row #f)
