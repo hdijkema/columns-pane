@@ -1,14 +1,14 @@
 #lang info
 
 (define pkg-authors '(hnmdijkema))
-(define version "0.1")
+(define version "0.1.1")
 (define license 'Apache-2.0)
 (define collection "columns-pane")
 (define pkg-desc "A pane that arranges it's children widgets in columns")
 
 (define scribblings
   '(
-    ("scribblings/columns-pane.scrbl" () (library) "columns-pane%")
+    ("scribblings/columns-pane.scrbl" () (library) "columns-pane")
     )
   )
 
