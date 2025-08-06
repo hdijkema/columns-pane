@@ -4,6 +4,7 @@
    scribble/example
    (for-label racket/base
               racket/string
+              racket/gui
               racket/file))
 
 (define myeval
@@ -15,7 +16,8 @@
 
 @defclass/title[columns-pane% vertical-pane% ()]{
 
-A columns pane arranges its subwindows in columns. The number of columns must be given in advance and initializes to 1. 
+A columns pane arranges its subwindows in columns. The number of columns must be given in advance and initializes to 1.
+See also @racket[pane%].
 
 @defconstructor[([parent (or/c (is-a?/c frame%) (is-a?/c dialog%) 
                                (is-a?/c panel%) (is-a?/c pane%))]
