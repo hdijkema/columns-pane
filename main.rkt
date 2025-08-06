@@ -156,7 +156,8 @@
 ;(send g column-min-width 1 500)
 ;(send g column-align 2 'right)
 
-;(define btn1 (new button% [parent g] [label "Button 1"]))
+;(define btn1 (new button% [parent g] [label "Button 1"]
+;                  [callback (lambda (b e) (send lbl1 set-label "New label"))]))
 ;(define g1 (new gauge%  [parent g] [stretchable-width #t] [label "gauge 1"] [range 100]))
 ;(define lbl1 (new message% [parent g] [label "This is lbl 1 and long"]))
 
@@ -164,7 +165,8 @@
 ;(define g2-lbl (new message% [parent g] [label "This is something else then a gauge"]))
 ;(define lbl2 (new message% [parent g] [label "This is lbl 2"]))
 
-;(define btn3 (new button% [parent g] [label "Btn 3"]))
+;(define btn3 (new button% [parent g] [label "Btn 3"]
+;                  [callback (lambda (b e) (send lbl3 set-label "Longer label now"))]))
 ;(define g3-lbl (new message% [parent g] [label "This is something else then a gauge, another message"]))
 ;(define lbl3 (new message% [parent g] [label "short"]))
 
