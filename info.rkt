@@ -13,7 +13,7 @@
   )
 
 (define deps
-  '("racket/gui"))
+  '("racket/gui" "racket/base" "racket/core"))
 
 (define build-deps
   '("racket-doc"

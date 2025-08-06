@@ -86,6 +86,8 @@
              (col-min-width (vector-ref column-min-widths c))
              (w* (if (> col-min-width w) col-min-width w))
              )
+        (when (eq? (vector-ref column-keep-min-widths c) #t)
+          (vector-set! column-min-widths c w*))
         (set-min-width* c 0 w*)))
         
     (define/private (arrange*)
@@ -103,6 +105,7 @@
     ;; Internal data
     (define column-min-widths (make-vector columns 0))
     (define column-aligns (make-vector columns 'left))
+    (define column-keep-min-widths (make-vector columns #f))
 
     ;; Public methods
     (define/public (column-min-width c . w)
@@ -125,6 +128,11 @@
                        )
                 (f 0))))))
       (vector-ref column-aligns c))
+
+    (define/public (column-keep-min-width c . k)
+      (unless (null? k)
+        (vector-set! column-keep-min-widths c (car k)))
+      (vector-ref column-keep-min-widths c))
 
     ;; Overridden methods
     (define/override (after-new-child child)
@@ -154,21 +162,22 @@
 
 ;(define g (new columns-pane% [parent grid-group] [columns 3]))
 ;(send g column-min-width 1 500)
-;(send g column-align 2 'right)
+;(send g column-align 2 'center)
+;(send g column-keep-min-width 2 #t)
 
 ;(define btn1 (new button% [parent g] [label "Button 1"]
 ;                  [callback (lambda (b e) (send lbl1 set-label "New label"))]))
 ;(define g1 (new gauge%  [parent g] [stretchable-width #t] [label "gauge 1"] [range 100]))
-;(define lbl1 (new message% [parent g] [label "This is lbl 1 and long"]))
+;(define lbl1 (new message% [parent g] [label "This is lbl 1 and long"] [auto-resize #t]))
 
 ;(define btn2 (new button% [parent g] [label "Btn 2"]))
 ;(define g2-lbl (new message% [parent g] [label "This is something else then a gauge"]))
-;(define lbl2 (new message% [parent g] [label "This is lbl 2"]))
+;(define lbl2 (new message% [parent g] [label "This is lbl 2"] [auto-resize #t]))
 
 ;(define btn3 (new button% [parent g] [label "Btn 3"]
 ;                  [callback (lambda (b e) (send lbl3 set-label "Longer label now"))]))
 ;(define g3-lbl (new message% [parent g] [label "This is something else then a gauge, another message"]))
-;(define lbl3 (new message% [parent g] [label "short"]))
+;(define lbl3 (new message% [parent g] [label "short"] [auto-resize #t]))
 
 ;(send win show #t)
 
