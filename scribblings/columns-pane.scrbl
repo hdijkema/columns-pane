@@ -2,9 +2,9 @@
 
 @(require
    scribble/example
-   (for-label racket/base
+   (for-label racket
+              racket/base
               racket/string
-              racket/core
               racket/gui
               racket/file))
 
