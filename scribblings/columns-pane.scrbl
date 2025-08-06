@@ -30,7 +30,7 @@ See also @racket[pane%].
                  [min-height (or/c dimension-integer? #f) #f]
                  [stretchable-width any/c #t]
                  [stretchable-height any/c #t])]{
-
+}
 
 @defmethod*[([(min-width (c column-index) [w dimenstion-integer?]) dimension-integer?])]{
  Gets or sets the minimum width (in pixels) of the given column c.
@@ -38,7 +38,10 @@ See also @racket[pane%].
  Returns the currently set minimum width for the given column. 
 }
                                                 
-}}
+
+}
+
+
 
 @section{Example code}
 
