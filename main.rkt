@@ -31,7 +31,7 @@
 
     (define/private (column-alignment* c)
       (let ((align (vector-ref column-aligns c)))
-        (displayln align)
+        ;(displayln align)
         align))
     
     (define/private (get-row* i)
@@ -51,8 +51,8 @@
       (let* ((row (get-row* r))
              (cells (send row get-children)))
         (let ((cell (list-ref cells c)))
-          (call-with-values (lambda () (send cell get-alignment))
-                            (lambda (h v) (printf "h=~a, v=~a\n" h v)))
+          ;(call-with-values (lambda () (send cell get-alignment))
+          ;                  (lambda (h v) (printf "h=~a, v=~a\n" h v)))
           cell)))
     
     (define/private (child* c r)
@@ -78,7 +78,8 @@
             (let ((child (child* c r)))
               (unless (eq? child #f)
                 (send child min-width w))))
-          (set-min-width* c (+ r 1) w))))
+          )
+        (set-min-width* c (+ r 1) w)))
     
     (define/private (arrange-col* c)
       (let* ((w (max-width* c 0 -1))
