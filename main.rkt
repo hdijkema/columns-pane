@@ -1,5 +1,4 @@
 #lang racket
-(module columns-pane racket
 
 (require racket/gui)
 
@@ -182,4 +181,3 @@
 
 ;(send win show #t)
 
-) ; End Module
