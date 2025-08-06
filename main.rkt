@@ -30,7 +30,9 @@
       )
 
     (define/private (column-alignment* c)
-      (vector-ref column-aligns c))
+      (let ((align (vector-ref column-aligns c)))
+        (displayln align)
+        align))
     
     (define/private (get-row* i)
       (when (eq? hpanes #f)
@@ -48,7 +50,10 @@
     (define/private (cell* c r)
       (let* ((row (get-row* r))
              (cells (send row get-children)))
-        (list-ref cells c)))
+        (let ((cell (list-ref cells c)))
+          (call-with-values (lambda () (send cell get-alignment))
+                            (lambda (h v) (printf "h=~a, v=~a\n" h v)))
+          cell)))
     
     (define/private (child* c r)
       (let* ((cell (cell* c r))
@@ -66,9 +71,13 @@
 
     (define/private (set-min-width* c r w)
       (when (< r (vector-length hpanes))
-        (let ((child (child* c r)))
-          (when (not (eq? child #f))
-            (send child min-width w))
+        (let ((cell (cell* c r)))
+          (unless (eq? cell #f)
+            (send cell min-width w))
+          (when (eq? (column-alignment* c) 'left)
+            (let ((child (child* c r)))
+              (unless (eq? child #f)
+                (send child min-width w))))
           (set-min-width* c (+ r 1) w))))
     
     (define/private (arrange-col* c)
@@ -101,8 +110,19 @@
       (vector-ref column-min-widths c))
 
     (define/public (column-align c . a)
-      (unless (null? a)
-        (vector-set! column-aligns c (car a)))
+      (let ((current-align (vector-ref column-aligns c)))
+        (unless (null? a)
+          (let ((new-align (car a)))
+            (unless (eq? new-align current-align)
+              (vector-set! column-aligns c new-align)
+              (letrec ((rows (if (eq? hpanes #f) 0 (vector-length hpanes)))
+                       (f (lambda (r)
+                            (when (< r rows)
+                              (let ((cell (cell* c r)))
+                                (send cell set-alignment (list new-align 'center)))
+                              (f (+ r 1)))))
+                       )
+                (f 0))))))
       (vector-ref column-aligns c))
 
     ;; Overridden methods
@@ -133,14 +153,19 @@
 
 ;(define g (new columns-pane% [parent grid-group] [columns 3]))
 ;(send g column-min-width 1 500)
+;(send g column-align 2 'right)
 
 ;(define btn1 (new button% [parent g] [label "Button 1"]))
 ;(define g1 (new gauge%  [parent g] [stretchable-width #t] [label "gauge 1"] [range 100]))
-;(define lbl1 (new message% [parent g] [label "This is lbl 1"]))
+;(define lbl1 (new message% [parent g] [label "This is lbl 1 and long"]))
 
 ;(define btn2 (new button% [parent g] [label "Btn 2"]))
 ;(define g2-lbl (new message% [parent g] [label "This is something else then a gauge"]))
 ;(define lbl2 (new message% [parent g] [label "This is lbl 2"]))
+
+;(define btn3 (new button% [parent g] [label "Btn 3"]))
+;(define g3-lbl (new message% [parent g] [label "This is something else then a gauge, another message"]))
+;(define lbl3 (new message% [parent g] [label "short"]))
 
 ;(send win show #t)
 
