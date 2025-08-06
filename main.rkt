@@ -109,7 +109,7 @@
     (define/override (after-new-child child)
       (super after-new-child child)
       (when (eq? creating-row #f)
-        (let ((cell (get-cell* current-col current-row)))
+        (let ((cell (cell* current-col current-row)))
           (send child reparent cell))
         (set! current-col (+ current-col 1))
         (when (>= current-col columns)
