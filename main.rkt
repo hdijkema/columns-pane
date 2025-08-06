@@ -10,7 +10,6 @@
 
     ;; Internal data
     (define hpanes #f)
-    (define column-min-widths (make-vector columns 0))
     (define creating-row #f)
     (define current-col 0)
     (define current-row 0)
@@ -77,10 +76,13 @@
     ;; Fields that can be given
     (init-field [vert-margin 5] [horiz-margin 5] [spacing 5] [columns 1])
 
+    ;; Internal data
+    (define column-min-widths (make-vector columns 0))
+
     ;; Public methods
     (define/public (column-min-width c . w)
       (unless (null? w)
-        (vector-set! column-min-widths c w))
+        (vector-set! column-min-widths c (car w)))
       (vector-ref column-min-widths c))
     
 
@@ -111,6 +113,7 @@
 ;(define grid-group (new group-box-panel% [label "My group"] [parent win] [horiz-margin 10] [vert-margin 10]))
 
 ;(define g (new columns-pane% [parent grid-group] [columns 3]))
+;(send g column-min-width 1 500)
 
 ;(define btn1 (new button% [parent g] [label "Button 1"]))
 ;(define g1 (new gauge%  [parent g] [stretchable-width #t] [label "gauge 1"] [range 100]))
