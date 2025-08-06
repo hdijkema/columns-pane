@@ -19,7 +19,7 @@
 @defmodule[columns-pane]
 This module provides a new class @racket[columns-pane%] that can be used to arrange widgets in a table like fashon, making all widgets in a column of the same width
 
-@defclass/title[columns-pane% vertical-pane% ()]{
+@defclass[columns-pane% vertical-pane% ()]{
 
 A columns pane arranges its subwindows in columns. The number of columns must be given in advance and initializes to 1.
 See also @racket[pane%].
