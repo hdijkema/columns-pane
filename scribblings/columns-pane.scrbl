@@ -63,7 +63,7 @@ See also @racket[pane%].
    (send win show #t)
 ]
 
-@image{columns-pane-example.png}
+@image{scribblings/columns-pane-example.png}
 
 @section{Same panel without columns-pane}
 
@@ -92,4 +92,4 @@ See also @racket[pane%].
    (send win show #t)
 ]
 
-@image{without-columns-pane.png}
+@image{scribblings/without-columns-pane.png}
