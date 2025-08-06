@@ -103,7 +103,7 @@
     (define/public (column-align c . a)
       (unless (null? a)
         (vector-set! column-aligns c (car a)))
-      (vector-reff column-aligns c))
+      (vector-ref column-aligns c))
 
     ;; Overridden methods
     (define/override (after-new-child child)
