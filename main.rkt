@@ -22,12 +22,15 @@
         (letrec ((adder (lambda (col)
                           (when (< col columns)
                             (new horizontal-pane% [parent new-pane] [stretchable-width #t]
-                                 [alignment (list (cell-alignment* col) 'center)]))
+                                 [alignment (list (column-alignment* col) 'center)]))
                           (adder (+ col 1)))))
           (adder 0))
         (set! creating-row #f)
         new-pane)
       )
+
+    (define/private (column-alignment* c)
+      (vector-ref column-aligns c))
     
     (define/private (get-row* i)
       (when (eq? hpanes #f)
