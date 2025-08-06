@@ -3,10 +3,11 @@
 @(require
    scribble/example
    (for-label racket
-              racket/base
-              racket/string
-              racket/gui
-              racket/file)
+              ;racket/base
+              ;racket/string
+              ;racket/gui
+              ;racket/file
+              )
   @(for-label columns-pane))
 
 @(define myeval
