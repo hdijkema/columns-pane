@@ -22,8 +22,8 @@
         (letrec ((adder (lambda (col)
                           (when (< col columns)
                             (new horizontal-pane% [parent new-pane] [stretchable-width #t]
-                                 [alignment (list (column-alignment* col) 'center)]))
-                          (adder (+ col 1)))))
+                                 [alignment (list (column-alignment* col) 'center)])
+                            (adder (+ col 1))))))
           (adder 0))
         (set! creating-row #f)
         new-pane)
@@ -139,6 +139,7 @@
 ;(define lbl1 (new message% [parent g] [label "This is lbl 1"]))
 
 ;(define btn2 (new button% [parent g] [label "Btn 2"]))
+;(define g2-lbl (new message% [parent g] [label "This is something else then a gauge"]))
 ;(define lbl2 (new message% [parent g] [label "This is lbl 2"]))
 
 ;(send win show #t)

@@ -32,12 +32,19 @@ See also @racket[pane%].
                  [stretchable-height any/c #t])]{
 }
 
-@defmethod*[([(min-width (c column-index) [w dimenstion-integer?]) dimension-integer?])]{
+@defmethod*[([(column-min-width (c column-index) [w dimenstion-integer?]) dimension-integer?])]{
  Gets or sets the minimum width (in pixels) of the given column c.
 
  Returns the currently set minimum width for the given column. 
 }
-                                                
+
+@defmethod*[([(column-align (c column-index) [align <- (or/c 'left 'center 'right)]) (or/c 'left 'center 'right) ])]{
+  Gets or sets the horizontal alignment of a given column c.
+
+  Returns the currently set alignment.
+
+  Note. Use this right after declaring the columns pane and before adding any children. 
+}
 
 }
 
