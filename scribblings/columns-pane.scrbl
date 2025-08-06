@@ -2,10 +2,10 @@
 
 @(require
    scribble/example
-   (for-label racket
+   (for-label ;racket
               ;racket/base
               ;racket/string
-              ;racket/gui
+              racket/gui
               ;racket/file
               )
   @(for-label columns-pane))
