@@ -52,9 +52,17 @@ See also @racket[pane%].
   Note. Use this right after declaring the columns pane and before adding any children. 
 }
 
+@defmethod*[([(column-keep-min-width (c column-index) [k (or/c #f #t])]{
+  Gets or sets the keep minimal width parameter for a given column c. 
+
+  Returns the currently set value. 
+
+  When this parameter is set for a column, the column-width will not shrink when the contents of the column get less width. 
+  It will grow however, when needed. 
 }
 
 
+}
 
 @section{Example code}
 
