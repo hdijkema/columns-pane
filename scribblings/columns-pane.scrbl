@@ -36,6 +36,7 @@ See also @racket[pane%].
 
 }}
 
+@subsection{Example code}
 
 @#reader scribble/comment-reader 
 [racketblock
@@ -44,7 +45,8 @@ See also @racket[pane%].
 
    (define win (new frame% [label "A new frame"]))
    (define grid-group (new group-box-panel%
-                           [label "A new group"] [parent win] [horiz-margin 10] [vert-margin 10]))
+                           [label "A new group"] [parent win]
+                           [horiz-margin 10] [vert-margin 10]))
 
    ;; Adding the columns pane with 3 columns
    (define g (new columns-pane% [parent grid-group] [columns 3]))
@@ -61,4 +63,33 @@ See also @racket[pane%].
    (send win show #t)
 ]
 
+@image{columns-pane-example.png}
 
+@subsection{Same panel without columns-pane}
+
+@#reader scribble/comment-reader 
+[racketblock
+   (require racket/gui)
+
+   (define win (new frame% [label "A new frame"]))
+   (define grid-group (new group-box-panel%
+                           [label "A new group"] [parent win]
+                           [horiz-margin 10] [vert-margin 10]))
+
+   ;; Adding the columns pane with 3 columns
+   (define h1 (new horizontal-pane% [parent grid-group]))
+
+   (define btn1 (new button% [parent h1] [label "Button 1"]))
+   (define g1 (new gauge%  [parent h1] [stretchable-width #t] [label "gauge 1"] [range 100]))
+   (define lbl1 (new message% [parent h1] [label "This is lbl 1"]))
+
+   (define h2 (new horizontal-pane% [parent grid-group]))
+   (define btn2 (new button% [parent h2] [label "Btn 2"]))
+   (define lbl2 (new message% [parent h2] [label "This is lbl 2"]))
+
+   ;; Now, when the window is shown, the columns pane will arrange it's children
+   ;; to have the same width in each column. 
+   (send win show #t)
+]
+
+@image{without-columns-pane.png}
