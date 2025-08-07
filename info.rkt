@@ -8,7 +8,7 @@
 
 (define scribblings
   '(
-    ("scribblings/columns-pane.scrbl" () (library) "columns-pane")
+    ("scribblings/columns-pane.scrbl" () (gui) "columns-pane")
     )
   )
 
