@@ -114,8 +114,6 @@ See also @racket[pane%].
    (define btn2 (new button% [parent h2] [label "Btn 2"]))
    (define lbl2 (new message% [parent h2] [label "This is lbl 2"]))
 
-   ;; Now, when the window is shown, the columns pane will arrange it's children
-   ;; to have the same width in each column. 
    (send win show #t)
 ]
 
